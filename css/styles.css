@@ -188,3 +188,14 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+#send{
+  width:5rem; 
+  height: 2rem; 
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+/* .deleteButton{
+
+} */

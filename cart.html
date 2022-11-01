@@ -2,13 +2,13 @@
 <html lang="es">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>eMercado - Todo lo que busques está aquí</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -18,38 +18,203 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+        <ul class="nav navbar-nav w-100 justify-content-between">
+          <li class="nav-item btn-dark">
+            <a class="nav-link active" href="index.html">Inicio</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item btn-dark">
             <a class="nav-link" href="categories.html">Categorías</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item btn-dark">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+
+          <li class="nav-item dropdown btn-dark">
+            <a class="nav-link dropdown-toggle" id="usuario" data-bs-toggle="dropdown" href="my-profile.html"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="cart.html">Mi carrito</a>
+              <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
+              <a class="dropdown-item" onclick="cerrarSesion()">Cerrar sesión</a>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
   <main>
+    <div id="cartel"></div>
+
+    <!-- CONTENEDOR DE LA TABLA CON PRODUCTOS -->
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div>
+        <h2 class="text-center p-4">Carrito de Compras</h2>
+        <p class="lead"><b>Artículos a comprar</b></p>
+      </div>
+      <hr />
+      <table class="table">
+        <thead>
+          <th>Imágen</th>
+          <th>Nombre</th>
+          <th>Costo</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th></th>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>   
+
+    <!-- DIRECCIÓN Y TIPO DE ENVÍO -->
+    <div class="container">
+      <br><hr>
+      <form action="" method="get" class="needs-validation" novalidate>
+        <p class="lead"><b>Tipo de envío</b></p>
+        <input type="radio" id="premium" value="premium" name="tipo_de_envío" onclick="calcCostoEnvio()" />
+        <label for="premium">Premium 2 a 5 días (15%)</label><br />
+        <input type="radio" id="express" value="express" name="tipo_de_envío" onclick="calcCostoEnvio()" />
+        <label for="express">Express 5 a 8 días (7%)</label><br />
+        <input type="radio" id="standard" value="standard" name="tipo_de_envío" onclick="calcCostoEnvio()" />
+        <label for="standard">Standard 12 a 15 días (5%)</label>
+        <br><br><hr>
+        <p class="lead"><b>Dirección de envío</b></p>
+        <div class="row row-cols-2">
+          <div class="col">
+            <label for="calle" class="form-label" >Calle</label>
+            <div class="input-group has-validation">
+              <input type="text" class="form-control" id="calle" required>
+              <div class="invalid-feedback">Debe ingresar una calle.</div>
+            </div>
+          </div>
+          <div class="col">
+            <label for="numero" class="form-label" >Número</label>
+            <div class="input-group has-validation">
+              <input type="text" class="form-control" id="numero" required>
+              <div class="invalid-feedback">Debe ingresar un número.</div>
+            </div>
+          </div>          
+          <div class="col"><br>
+            <label for="esquina" class="form-label" >Esquina</label>
+            <div class="input-group has-validation">
+              <input type="text" class="form-control" id="esquina" style="width: 20rem" required>
+              <div class="invalid-feedback">Debe ingresar una esquina.</div>
+            </div>
+            <br>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- COSTOS: (SUBTOTAL, COSTO ENVÍO Y TOTAL) -->
+    <div class="container">
+      <hr />
+      <p class="lead"><b>Costos</b></p>
+      <ol class="list-group">
+        <li class="list-group-item d-flex justify-content-between">
+          <div class="ms-0">
+            <div class="fw-normal">Subtotal</div>
+            <label class="fw-lighter" style="font-size: 0.9rem;">Costo unitario del producto por cantidad</label>
+          </div>
+          <span id="subtotal-general">$USD </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <div class="ms-0">
+            <div class="fw-normal">Costo de envío</div>
+            <label class="fw-lighter" style="font-size: 0.9rem;">Según el tipo de envío</label>
+          </div>
+          <span id="costo-de-envio">$UDS</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <div class="ms-0">
+            <div class="fw-normal">Total ($)</div>
+          </div>
+          <span id="total">$USD</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- MODAL FORMAS DE PAGO -->
+    <div class="container">
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title fw-bold">Forma de pago</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+
+                <div>
+                  <input type="radio" id="tarjeta" name="drone" value="tarjeta" onclick="modal()" checked>
+                  <label class="modal-title" for="tarjeta">Opción 1: Tarjeta de crédito</label>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-md-8">
+                    <label for="recipient-name" class="col-form-label">Número de tarjeta</label>
+                    <input type="text" class="form-control" id="card-number">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="recipient-name" class="col-form-label">Código de seg.</label>
+                    <input type="text" class="form-control" id="security-code">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Vencimiento</label>
+                  <input type="text" class="form-control" id="expiration" placeholder="MM/AA">
+                </div>
+                <br>
+                <div>
+                  <input type="radio" id="transferencia" name="drone" value="tarjeta" onclick="modal()">
+                  <label class="modal-title" for="tarjeta">Opción 2: Transferencia bancaria</label>
+                </div>
+                <hr />
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Número de cuenta</label>
+                  <input type="text" class="form-control" id="account-number">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <!-- BOTÓN FINALIZAR COMPRA E HYPERLINK MODAL -->
+    <div class="container">
+      <hr>
+      <p class="lead"><b>Forma de pago</b></p>
+      <span id="metodo-de-pago">No ha seleccionado</span>
+      <a href="Seleccionar" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal()">Seleccionar</a>
+      <p id="metodo-de-pago-alert" class="text-danger" style="font-size: 0.9rem;"></p>
+      <br><br><br>
+      <div class="d-grid gap-2">
+        <button id="btn-finalizar-compra" class="btn btn-primary" type="button">Finalizar compra</button>
       </div>
     </div>
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+      <p>
+        Este sitio forma parte de
+        <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+        - 2022
+      </p>
+      <p>
+        Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la
+        letra del obligatorio.
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">

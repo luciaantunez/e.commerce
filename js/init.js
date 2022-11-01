@@ -6,6 +6,13 @@ const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/prod
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
+let cartProductsArray = [];
+
+
+const getProdUrl = (idCat) => PRODUCTS_URL+idCat+EXT_TYPE;
+const getProdInfoUrl = (idProd) => PRODUCT_INFO_URL+idProd+EXT_TYPE;
+const getProdComments = (idProd) => PRODUCT_INFO_COMMENTS_URL+idProd+EXT_TYPE;
+const getCartUrl = (idUser) => CART_INFO_URL+idUser+EXT_TYPE;
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -38,4 +45,23 @@ let getJSONData = function(url){
         hideSpinner();
         return result;
     });
+}
+
+document.getElementById("usuario").innerHTML = (localStorage.getItem("user"));
+
+function cerrarSesion () {
+  localStorage.removeItem("user");
+  window.location = "index.html";
+}
+
+
+//AGREGAR AL CARRITO
+function addToCartProductsArray(id, imagen, nombre, currency, costo) { 
+  let currentObj = {id, imagen, nombre, currency, costo};
+  cartProductsArray = JSON.parse(localStorage.getItem("cartProductsArray")); 
+  if (!cartProductsArray) { cartProductsArray = [currentObj];
+  } else if (cartProductsArray.some(e => e.id === id)) { alert("este producto ya está en el carrito");
+  } else {cartProductsArray.push(currentObj);
+  alert(nombre+" ha sido añadido al carrito")}
+  localStorage.setItem("cartProductsArray", JSON.stringify(cartProductsArray));
 }

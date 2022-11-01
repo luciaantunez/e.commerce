@@ -6,6 +6,7 @@ let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
+
 function sortCategories(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)
@@ -41,16 +42,15 @@ function setCatID(id) {
 }
 
 function showCategoriesList(){
-
     let htmlContentToAppend = "";
     for(let i = 0; i < currentCategoriesArray.length; i++){
         let category = currentCategoriesArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
+         if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) && 
+             ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
 
             htmlContentToAppend += `
-            <div onclick="setCatID(${category.id})" class="list-group-item list-group-item-action cursor-active">
+            <div onclick="setCatID(${category.id})" id="${category.id}" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="${category.imgSrc}" alt="${category.description}" class="img-thumbnail">
@@ -66,10 +66,67 @@ function showCategoriesList(){
             </div>
             `
         }
-
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
     }
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+    const AUTOS = document.getElementById("101");
+    if (AUTOS != null) { AUTOS.addEventListener("click", function() {
+            localStorage.setItem("catID", 101);
+            window.location = "products.html"
+        });
+    }
+    const JUGUETES = document.getElementById("102");
+    if (JUGUETES != null) { JUGUETES.addEventListener("click", function() {
+            localStorage.setItem("catID", 102);
+            window.location = "products.html"
+        });
+    }
+    const MUEBLES = document.getElementById("103");
+    if (MUEBLES != null) { MUEBLES.addEventListener("click", function() {
+            localStorage.setItem("catID", 103);
+            window.location = "products.html"
+        });
+    }
+    const HERRAMIENTAS = document.getElementById("104");
+    if (HERRAMIENTAS != null) { HERRAMIENTAS.addEventListener("click", function() {
+            localStorage.setItem("catID", 104);
+            window.location = "products.html"
+        });
+    }
+    const COMPUTADORAS = document.getElementById("105");
+    if (COMPUTADORAS != null) { COMPUTADORAS.addEventListener("click", function() {
+            localStorage.setItem("catID", 105);
+            window.location = "products.html"
+        });
+    }
+    const VESTIMENTA = document.getElementById("106");
+    if (VESTIMENTA != null) { VESTIMENTA.addEventListener("click", function() {
+            localStorage.setItem("catID", 106);
+            window.location = "products.html"
+        });
+    }
+    const ELECTRODOMESTICOS = document.getElementById("107");
+    if (ELECTRODOMESTICOS != null) { ELECTRODOMESTICOS.addEventListener("click", function() {
+            localStorage.setItem("catID", 107);
+            window.location = "products.html"
+        });
+    }
+    const DEPORTE = document.getElementById("108");
+    if (DEPORTE != null) { DEPORTE.addEventListener("click", function() {
+            localStorage.setItem("catID", 108);
+            window.location = "products.html"
+        });
+    }
+    const CELULARES = document.getElementById("109");
+    if (CELULARES != null) { CELULARES.addEventListener("click", function() {
+            localStorage.setItem("catID", 109);
+            window.location = "products.html"
+        });
+    }
+});
+
 
 function sortAndShowCategories(sortCriteria, categoriesArray){
     currentSortCriteria = sortCriteria;
@@ -137,7 +194,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         else{
             maxCount = undefined;
         }
-
         showCategoriesList();
-    });
+    }); 
 });

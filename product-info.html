@@ -2,14 +2,15 @@
 <html lang="es">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>eMercado - Todo lo que busques está aquí</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -19,38 +20,78 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+        <ul class="nav navbar-nav w-100 justify-content-between">
+          <li class="nav-item btn-dark">
+            <a class="nav-link active" href="index.html">Inicio</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item btn-dark">
             <a class="nav-link" href="categories.html">Categorías</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item btn-dark">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          
+          <li class="nav-item dropdown btn-dark">
+            <a class="nav-link dropdown-toggle" id="usuario"  data-bs-toggle="dropdown" href="my-profile.html"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="cart.html">Mi carrito</a>
+              <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
+              <a class="dropdown-item" onclick="cerrarSesion()" >Cerrar sesión</a>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
   <main>
-    <div class="container">
+    <!-- <div class="container">
       <div class="alert alert-danger text-center" role="alert">
         <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
       </div>
-    </div>
+    </div> -->
+    <div class="container" id="container"></div> <!-- container de showProductInfo -->
+    <div class="container" id="container2"></div> <!-- container de showProductComments -->
+    <div class="container" id="container3"></div> <!-- container para los nuevos comentarios -->
+
+    <form class="container">
+      <h5 style="margin-top:2em">Comentar</h5>
+      <div>
+        <p style="font-size: 0.8rem; margin-top: 1em;">Tu opinión:</p>
+        <textarea id="userOpinion" style="width: 30em; min-height:6em; height:fit-content;"></textarea>
+      </div>
+      <div>
+        <p style="font-size: 0.8rem; margin-top: 1em;">Tu puntuación:</p>
+          <select id="userPoints" style="width: 6em;">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+      </div>
+      <button id="send" type="submit" class="btn-primary">Enviar</button>
+    </form>
+    <br>
+    <div class="container" id="container4"></div> <!-- container para los productos relacionados -->
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+      <p>
+        Este sitio forma parte de
+        <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+        - 2022
+      </p>
+      <p>
+        Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la
+        letra del obligatorio.
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">

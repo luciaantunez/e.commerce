@@ -18,23 +18,32 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+        <ul class="nav navbar-nav w-100 justify-content-between">
+          <li class="nav-item btn-dark">
+            <a class="nav-link active" href="index.html">Inicio</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item btn-dark">
             <a class="nav-link" href="categories.html">Categorías</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="sell.html">Vender</a>
+          <li class="nav-item btn-dark">
+            <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          
+          <li class="nav-item dropdown btn-dark">
+            <a class="nav-link dropdown-toggle" id="usuario"  data-bs-toggle="dropdown" href="my-profile.html"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="cart.html">Mi carrito</a>
+              <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
+              <a class="dropdown-item" onclick="cerrarSesion()" >Cerrar sesión</a>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  
   <div class="container">
     <div class="text-center p-4">
       <h2>Vender</h2>
