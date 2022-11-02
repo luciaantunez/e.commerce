@@ -54,6 +54,12 @@ function cerrarSesion () {
   window.location = "index.html";
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  user = localStorage.getItem("user");
+  if (!user) {
+      window.location = "index.html";
+  }
+});
 
 //AGREGAR AL CARRITO
 function addToCartProductsArray(id, imagen, nombre, currency, costo) { 
