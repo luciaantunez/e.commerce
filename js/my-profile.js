@@ -6,20 +6,16 @@ phoneNumber = document.getElementById("phoneNumber");
 secondLastname = document.getElementById("secondLastname");
 secondName = document.getElementById("secondName");
 imgPreview = document.getElementById("imgPreview");
-defaultImage = document.getElementById("defaultImage");
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  /*   const recentImageDataURL = localStorage.getItem("recent-image");
-    if (recentImageDataURL) {
-        document.querySelector("#imgPreview").setAttribute("src", recentImageDataURL);
-    } */
   user = localStorage.getItem("user");
   userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  if (userInfo && userInfo.email == user) {
-    email.value = userInfo.email;
+  email.value = userInfo.email;
+  //verificamos el  y colocamos los valores de los inputs obligatorios en el objeto que trajimos del local
+  if (userInfo && userInfo.email == user) { 
     firstName.value = userInfo.firstName;
     lastname.value = userInfo.lastname;
-    if (userInfo.secondName) {
+    if (userInfo.secondName) {email
       secondName.value = userInfo.secondName;
     }
     if (userInfo.secondLastname) {
@@ -80,6 +76,7 @@ btnSaveChanges.addEventListener("click", (e) => {
   }
 });
 
+//AGREGAR IMAGEN DE PERFIL
 //https://www.youtube.com/watch?v=8K2ihr3NC40&ab_channel=midudev
 document.querySelector("#profilePhoto").addEventListener("change", function(){
     userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -89,8 +86,6 @@ document.querySelector("#profilePhoto").addEventListener("change", function(){
             userInfo.img = reader.result;
           }
         imgPreview.src = userInfo.img;
-        defaultImage.classList.add("invisible");
-        imgPreview.classList.remove("invisible");
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
     });
     reader.readAsDataURL(this.files[0]);
